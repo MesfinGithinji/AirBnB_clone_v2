@@ -53,8 +53,7 @@ class FileStorage:
         """
         delete obj from __objects
         if available then delete
-        else if obj is equal to None
-        method should not do anything
+        else if obj == None do nothing
         """
         if obj:
             key = "{}.{}".format(type(obj).__name__, obj.id)

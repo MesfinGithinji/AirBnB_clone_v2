@@ -11,29 +11,17 @@ from sqlalchemy import Column, String
 
 class User(BaseModel, Base):
     """Class attributes for users """
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        __tablename__ = 'users'
-        email = Column(String(128),nullable=False)
-        _password = Column('password',String(128),nullable=False)
-        first_name = Column(String(128),nullable=True)
-        last_name = Column(String(128),nullable=True)
-        places = relationship("Place",backref="user",cascade="all, delete-orphan")
-        reviews = relationship("Review",backref="user",cascade="all, delete-orphan")
-    else:
-        email = ""
-        _password = ""
-        first_name = ""
-        last_name = ""
+    __tablename__ = 'users'
+    email = Column(String(128), nullable=False)
+    password = Column(String(128), nullable=False)
+    first_name = Column(String(128), nullable=True)
+    last_name = Column(String(128), nullable=True)
 
-    def __init__(self, *args, **kwargs):
-        """user instance intialized"""
-        super().__init__(*args, **kwargs)
+    places = relationship('Place', cascade='all, delete, delete-orphan',
+                          backref='user')
 
-    @property
-    def password(self):
-        return self._password
+    reviews = relationship('Review', cascade='all, delete, delete-orphan',
+                           backref='user')
 
-    @password.setter
-    def password(self, pwd):
-        """Hashed password value"""
-        self._password = pwd
+
+

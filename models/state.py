@@ -1,31 +1,35 @@
 #!/usr/bin/python3
-""" State Module for HBNB project """
-from models.base_model import BaseModel
-from sqlalchemy.ext.declarative import declarative_base
-from models.base_model import BaseModel, Base
-from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Integer, String
+""" State Module"""
+
 import models
-from models.city import City
+from models.base_model import BaseModel, Base
+from os import getenv
+import sqlalchemy
+from sqlalchemy import Column, String
+from sqlalchemy.orm import relationship
 
 
-class State(BaseModel,Base):
-    """ State class """
-    _tablename__ = "states"
-    name = Column(String(128), nullable=False)
-    cities = relationship("City", backref='state',
-                          cascade='all, delete, delete-orphan')
+class State(BaseModel, Base):
+    """State class defined attributes and columns """
 
-    @property
-    def cities(self):
-        """
-        return list of City instances with state_id equal
-        to current State.id
-        """
-        from models import storage
-        related_cities = []
-        cities = storage.all(City)
-        for city in cities.values():
-            if city.state_id == self.id:
-                related_cities.append(city)
-        return related_cities
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
+        __tablename__ = 'states'
+        name = Column(String(128),nullable=False)
+        cities = relationship("City", cascade="all, delete",backref="states")
+    else:
+        name = ""
+
+    def __init__(self, *args, **kwargs):
+        """sets up state"""
+        super().__init__(*args, **kwargs)
+
+    if getenv('HBNB_TYPE_STORAGE') != 'db':
+        @property
+        def cities(self):
+            """method to return city instances"""
+            city_details = models.storage.all("City").values()
+            city_val = []
+            for detail in city_details:
+                if detail.state_id == self.id:
+                    city_val.append(detail)
+            return city_val

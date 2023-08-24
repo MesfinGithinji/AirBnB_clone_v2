@@ -35,9 +35,11 @@ class BaseModel:
                 continue
             setattr(self, key, value)
             if type(self.created_at) is str:
-                self.created_at = datetime.strptime(self.created_at, timeString)
+                self.created_at = datetime.strptime(
+                    self.created_at, timeString)
             if type(self.updated_at) is str:
-                self.updated_at = datetime.strptime(self.updated_at, timeString)
+                self.updated_at = datetime.strptime(
+                    self.updated_at, timeString)
 
     def __str__(self):
         """BaseModel class string representation"""
@@ -50,7 +52,7 @@ class BaseModel:
         models.storage.new(self)
         models.storage.save()
 
-    def to_dict(self,save_to_disk=False):
+    def to_dict(self, save_to_disk=False):
         """Returns a dict of instance keys an values """
         dict_values = self.__dict__.copy()
         if "created_at" in dict_values:
@@ -70,8 +72,6 @@ class BaseModel:
             dict_values.pop('password', None)
         return dict_values
 
-
     def delete(self):
         """deletes current instance from storage"""
         models.storage.delete(self)
-

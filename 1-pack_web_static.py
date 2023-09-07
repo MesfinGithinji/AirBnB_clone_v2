@@ -2,10 +2,11 @@
 from fabric.api import local
 from time import strftime
 from datetime import date
+from collections.abc import Mapping
 
 
 def do_pack():
-    """ A script that generates .tgz archive from the contents of web_static folder"""
+    """ A script that generates archive the contents of web_static folder"""
 
     filename = strftime("%Y%m%d%H%M%S")
     try:

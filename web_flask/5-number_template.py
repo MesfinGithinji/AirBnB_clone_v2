@@ -48,13 +48,10 @@ def number(n):
         return f'{n} is not a number'
 
 
-@app.route('/number_template/<n>', strict_slashes=False)
-def number_rendered(n=None):
-    """display a html page only if n is a number"""
-    if isinstance(n, int):
-        return render_template('5-number.html', n=n)
-    else:
-        abort(404)
+@app.route('/number_template/<int:n>', strict_slashes=False)
+def num_html(n):
+    """render HTML if "n" is a number"""
+    return render_template('5-number.html', name=n)
 
 
 if __name__ == "__main__":

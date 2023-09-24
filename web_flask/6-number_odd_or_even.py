@@ -56,8 +56,11 @@ def num_html(n):
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def num_html_even_odd(n):
-    """render HTML if n is even|odd inside the tag BODY"""
-    return render_template('6-number_odd_or_even.html', name=n)
+    if n % 2 == 0:
+        status = "even"
+    else:
+        status = "odd"
+    return render_template('6-number_odd_or_even.html', n=n, status=status)
 
 
 if __name__ == "__main__":

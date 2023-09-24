@@ -42,10 +42,8 @@ def pytext(text='is cool'):
 def number(n):
     """display “n is a number” only if n is an integer
     """
-    if isinstance(n, int):
-        return f'{n} is a number'
-    else:
-        return f'{n} is not a number'
+    return f'{n} is a number'
+
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)

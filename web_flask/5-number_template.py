@@ -47,7 +47,7 @@ def number(n):
     else:
         return f'{n} is not a number'
 
-@app.route('/number_template/<int:n>', strict_slashes=False)
+@app.route('/number_template/<n>', strict_slashes=False)
 def number_rendered(n=None):
     """display a html page only if n is a number"""
     if isinstance(n, int):

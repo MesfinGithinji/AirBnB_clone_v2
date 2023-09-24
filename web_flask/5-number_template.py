@@ -3,7 +3,7 @@
 A script that starts a Flask web application.
 """
 
-from flask import Flask, render_template,abort
+from flask import Flask, render_template, abort
 
 app = Flask("__name__")
 
@@ -47,6 +47,7 @@ def number(n):
     else:
         return f'{n} is not a number'
 
+
 @app.route('/number_template/<n>', strict_slashes=False)
 def number_rendered(n=None):
     """display a html page only if n is a number"""
@@ -54,6 +55,7 @@ def number_rendered(n=None):
         return render_template('5-number.html', n=n)
     else:
         abort(404)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

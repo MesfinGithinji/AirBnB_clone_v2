@@ -53,6 +53,7 @@ def num_html(n):
     """render HTML if "n" is a number"""
     return render_template('5-number.html', name=n)
 
+
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def num_html_even_odd(n):
     """render HTML if n is even|odd inside the tag BODY"""
